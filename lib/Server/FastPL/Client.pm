@@ -1,6 +1,6 @@
 package Server::FastPL::Client;
 
-$VERSION = "1.0.0";
+$VERSION = "1.0.1";
 
 use IO::Socket;
 use strict;

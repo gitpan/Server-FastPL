@@ -1,6 +1,6 @@
 package Server::FastPL::Server;
 
-$VERSION = "1.0.0";
+$VERSION = "1.0.1";
 
 use IO::Socket;
 use POSIX qw(:sys_wait_h);

@@ -1,6 +1,6 @@
 package Server::FastPL;
 
-$VERSION = "1.0.0";
+$VERSION = "1.0.1";
 
 use Server::FastPL::Server;
 use Server::FastPL::Client;
