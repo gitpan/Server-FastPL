@@ -1,3 +1,4 @@
+#!/usr/bin/perl
 # $Id: Makefile.PL,v 1.5 1997/09/19 04:11:28 mfuhr Exp $
 
 # MakeFile for Server::FastPL (borrowed from Net::DNS)

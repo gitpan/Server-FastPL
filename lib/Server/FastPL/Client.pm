@@ -1,13 +1,16 @@
 package Server::FastPL::Client;
 
-$VERSION = "1.0.1";
+$VERSION = do {
+   my @r=(q$Revision: 1.00 $=~/\d+/g);
+   sprintf "%d."."%02d"x$#r,@r
+}; 
 
 use IO::Socket;
 use strict;
 
 =head1 NAME
 
-Server::FastPL::Client - Client interface for the Server::FastPL::Server module.
+Server::FastPL::Client - A Client to the Server::FastPL::Server module.
 
 =head1 VERSION
 
@@ -26,21 +29,21 @@ released April 10, 2000.
 
 =head2 Overview
 
-This module provides a socket that serves as the interface between a client
-script (using this module) and a server script (using Server::FastPL::Server).
+This module connect to a Unix Socket Server, waits for a one line reply that
+indicate a new Socket to connect, and then returns the Socket FileHandle to
+the definitive server.
 
 =head2 Constructor and Initialization
 
-$server = new Server::FastPL::Client(SERVER=>"/tmp/Test");
+$server = new Server::FastPL::Client(SERVER=>"/tmp/Teste");
 
-There is only one parameter, "SERVER". The value of this parameter is the
-Server::FastPL::Server server socket filename. In truth, the socket
-returned is a socket for one of the Server::FastPL::Server child processes.
-You can then use this socket for communication between your client and server
-scripts.
+There is only one parameter, SERVER. This indicates the primary socket that
+the module will connect, this function returns the socket filehandle of the
+definitive server.
 
 =head1 SEE ALSO
 
+Any Information about how it works is on
 Server::FastPL::Server
 
 =head1 AUTHOR
@@ -57,6 +60,18 @@ and/or modified under the same terms of Perl itself.
 =cut
 
 
+sub _send_signal {
+
+	my $name = shift;
+	open (PIDFILE, "$name.pid") || die "Couldn't open pidfile $name.pid";
+	my $pid = <PIDFILE>;
+	chomp $pid;
+	close PIDFILE;
+	kill 'USR2', $pid;
+	die "Sent signal to $pid reload.\n";
+	
+}
+
 sub new {
     my $self = shift;
     my $class = ref($self) || $self;
@@ -66,7 +81,7 @@ sub new {
     my $socket = IO::Socket::UNIX->new(
        Peer => $params{SERVER},
        Type => SOCK_STREAM
-    ) || die;
+    ) || &_send_signal($params{SERVER});
     
     my $redirect = <$socket>;
     close $socket;
@@ -76,7 +91,7 @@ sub new {
     my $socket = IO::Socket::UNIX->new(
        Peer => $redirect,
        Type => SOCK_STREAM
-    ) || die;
+    ) || &_send_signal($redirect);
     
     return $socket;
 }

@@ -108,7 +108,7 @@ DESCRIPTION
 ENVIRONMENT
     Signals:
 
-    This module uses two signals: USR1 and CHLD. Do not use these in
+    This module uses three signals: USR1, USR2 and CHLD. Do not use these in
     your script or the server will not work.
 
     Child processes:
