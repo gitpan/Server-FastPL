@@ -1,0 +1,6 @@
+MANIFEST
+Makefile.PL
+README
+lib/Server/FastPL.pm
+lib/Server/FastPL/Client.pm
+lib/Server/FastPL/Server.pm

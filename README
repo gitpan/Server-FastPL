@@ -1,0 +1,20 @@
+# THIS IS THE README FILE FOR Server::FastPL 1.0 (I will improve it later)
+
+There are few things you must know before using Server::FastPL
+
+1. This is a client-server interface, you must do a server, that will run
+the big code, and a small client, that runs a simple code, just to receive
+information from anywhere and send to the server, then receive from the
+server and do whatever you want. You'd prefer to be transparent, what means
+that the client will have to exit exactly the same way the server does.
+
+2. You might prefer to use the two small modules (Server::FastPL::Client and
+Server::FastPL::Server), instead of the big (Server::FastPL). Doing this way
+you will reduce the compile time of the client.
+
+Any Questions??
+
+Please send to me:
+
+Daniel Ruoso
+daniel@ruoso.com
